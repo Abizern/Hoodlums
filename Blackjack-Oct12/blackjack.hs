@@ -1,3 +1,19 @@
+{-
+ Hoodlums, October 2012
+
+ Simplified rules:
+ * A single deck is used, shuffled before each game
+ * The PLAYER is dealt two cards.
+   * If the hand is an ace and a picture card the PLAYER wins and the game is over.
+ * The PLAYER chooses to Hit until:
+   * The hand scores >21, the PLAYER loses and the game is over.
+   * The hand scores 21, the PLAYER wins and the game is over.
+   * The PLAYER chooses to stand.
+ * The DEALER is dealt cards until the score is greater than 17
+   * If the score is greater than 21, the PLAYER wins and the game is over.
+   * If the score is greater than the PLAYER's hand, the DEALER wins and the game is over
+
+ -}
 module BlackJack where
 
 import Control.Monad.State
