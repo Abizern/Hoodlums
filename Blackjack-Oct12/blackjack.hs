@@ -22,7 +22,13 @@ import Control.Monad.Random
 import Data.Maybe
 
 data Suit = H | D | S | C
-            deriving (Show, Eq, Ord, Enum, Bounded)
+            deriving (Eq, Ord, Enum, Bounded)
+
+instance Show Suit where
+  show H = "♥"
+  show D ="♦"
+  show S = "♠"
+  show C = "♣"
 
 data Rank = A | Number Int | J | Q | K
 
@@ -60,7 +66,7 @@ allEnums :: (Enum a, Bounded a) => [a]
 allEnums = [minBound .. maxBound]
 
 newDeck :: [Card]
-newDeck = [Card r s | s <- allEnums, r <- allEnums]
+newDeck = [Card r s | r <- allEnums, s <- allEnums]
 
 shuffledDeck :: MonadRandom m => m [Card]
 shuffledDeck = deckShuffle newDeck
@@ -91,14 +97,14 @@ dumpDeck = do
     d <- get
     liftIO $ print d
 
-data Turn = Twist | Stick
+data Turn = Hit | Stand
 
 getTurn :: BlackJackM Turn
 getTurn = do
     line <- liftIO $ getLine
     case line of
-        "t" -> return Twist
-        "s" -> return Stick
+        "h" -> return Hit
+        "s" -> return Stand
         _   -> (liftIO $ putStrLn "Invalid turn") >> getTurn
 
 valueCard :: Card -> [Int]
